@@ -7,11 +7,16 @@
 <script>
 // import axios from 'axios'
 // import jsonp from 'jsonp'
-
+// import storage from './storage/index'
 export default {
   name: 'App',
   components: {
 
+  },
+  data () {
+    return {
+      a: ''
+    }
   },
   mounted () {
     // let url = "https://www.fastmock.site/mock/0b3cb4ec251a5c1eb416120d61f6c2b2/mimall/table/list"
@@ -22,6 +27,14 @@ export default {
     // jsonp(url, (err, res) => {
     //   console.log(res)
     // })
+
+    // this.a = storage.getItem('user')
+    // this.a = storage.getItem('username', 'user')
+    // this.a = storage.setItem('a', 1)
+    // this.a = storage.setItem('b', 2, 'user')
+    // storage.clear('a')
+    // storage.clear('b', 'user')
+    // console.log('b is ', window.sessionStorage.getItem('mall'))
   }
 }
 </script>
