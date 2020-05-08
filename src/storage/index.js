@@ -50,6 +50,7 @@ export default {
   clear(key, module_key) {
     let val = this.getStorage();
     if (module_key) {
+      if (!val[module_key]) return
       delete val[module_key][key]
     } else {
       delete val[key]
