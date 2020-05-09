@@ -15,7 +15,8 @@ export default {
   },
   data () {
     return {
-      a: ''
+      a: '',
+      res: {}
     }
   },
   mounted () {
@@ -35,6 +36,21 @@ export default {
     // storage.clear('a')
     // storage.clear('b', 'user')
     // console.log('b is ', window.sessionStorage.getItem('mall'))
+    
+    // // 本地加载请求静态json文件的形式
+    // this.axios.get('/mock/user/login.json').then((res) => {
+    //   this.res = res
+    // })
+
+    // // 通过easy-mock平台生成数据mock
+    // this.axios.get('/user/login').then((res) => {
+    //   this.res = res
+    // })
+
+    // 本地集成mock api生成mock数据
+    this.axios.get('/user/login').then((res) => {
+      this.res = res
+    })
   }
 }
 </script>
