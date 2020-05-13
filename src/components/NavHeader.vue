@@ -22,8 +22,26 @@
         <div class="header-logo">
           <a href="/#/index"></a>
         </div>
-        <div class="header-menu"></div>
-        <div class="header-search"></div>
+        <div class="header-menu">
+          <div class="item-menu">
+            <span>小米手机</span>
+            <div class="children"></div>
+          </div>
+          <div class="item-menu">
+            <span>Redmi红米</span>
+            <div class="children"></div>
+          </div>
+          <div class="item-menu">
+            <span>电视</span>
+            <div class="children"></div>
+          </div>
+        </div>
+        <div class="header-search">
+          <div class="wrapper">
+            <input type="text" name="keyword">
+            <a href="javascript:;"></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -106,6 +124,24 @@ export default {
           &:hover:before {
             margin-left: -55px;
           }
+        }
+      };
+      .header-menu {
+        display: inline-block;
+        // width: 200px;
+        padding-left: 209px;
+        .item-menu {
+          display: inline-block;
+          color: #333333;
+          font-weight: bold;
+          line-height:60px;
+          margin-right: 20px;
+          span {
+            cursor: pointer;
+          }
+          // &: hover {
+
+          // }
         }
       }
     }
