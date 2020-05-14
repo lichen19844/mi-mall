@@ -128,8 +128,9 @@ export default {
       };
       .header-menu {
         display: inline-block;
-        // width: 200px;
+        width: 643px;
         padding-left: 209px;
+        border: 1px solid;
         .item-menu {
           display: inline-block;
           color: #333333;
@@ -142,6 +143,32 @@ export default {
           // &: hover {
 
           // }
+        }
+      }
+      .header-search {
+        width: 318px;
+        .wrapper {
+          height: 50px;
+          border: 1px solid #E0E0E0;
+          display: flex;
+          align-items: center;
+          // justify-self: ;
+          input {
+            border: none;
+            border-right: 1px solid #E0E0E0;
+            box-sizing: border-box;
+            padding-left: 14px;
+            width: 264px;
+            height: 50px;
+          }
+          a {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: url('/imgs/icon-search.png') no-repeat center;
+            background-size: contain;
+            margin-left: 17px;
+          }
         }
       }
     }
