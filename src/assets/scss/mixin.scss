@@ -1,0 +1,15 @@
+// flex布局复用
+@mixin flex($hor:space-between, $ver:center) {
+  display: flex;
+  justify-content: $hor;
+  align-items: $ver;
+}
+
+// 背景图片
+@mixin bgImg($w:0, $h:0, $img:'', $size:contain) {
+  display: inline-block;
+  width: $w;
+  height: $h;
+  background: url($img) no-repeat center;
+  background-size: $size;
+}
