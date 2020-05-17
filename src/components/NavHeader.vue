@@ -283,6 +283,7 @@ export default {
             z-index: 10;
             border-color: #ffffff;
             transition: all .6s;
+            background-color: $colorG;
             .product {
               position: relative;
               float: left;
