@@ -39,7 +39,7 @@ export default {
       display: inline-block;
       width: 20px;
       height: 20px;
-      border: 1px solid;
+      // border: 1px solid;
       vertical-align: middle;
       margin-right: 8px;
       margin-bottom: 4px;
