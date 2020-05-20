@@ -6,7 +6,16 @@
           <ul class="menu-wrap">
             <li class="menu-item">
               <a href="javascript:;">手机 电话卡</a>
-              <div class="children"></div>
+              <div class="children">
+                <ul v-for="(item, index) of menuList" :key="index">
+                  <li v-for="(sub, sub_index) of item" :key="sub_index">
+                    <a :href="sub ? '/#/product/'+sub.id : ''">
+                      <img :src="sub ? sub.img : 'imgs/item-box-1.png'" alt="">
+                      {{sub ? sub.name : '小米9'}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="menu-item">
               <a href="javascript:;">电视 盒子</a>
@@ -91,9 +100,9 @@ export default {
         },
         loop: true,
         autoplay: true,
-        mousewheel: {
-          invert: false,
-        },
+        // mousewheel: {
+        //   invert: false,
+        // },
         // spaceBetween: 30,
         // effect: "cube",
         cubeEffect: {
@@ -129,6 +138,28 @@ export default {
           img: "/imgs/slider/slide-5.jpg",
         },
       ],
+      menuList: [
+        [
+          {
+            id: 30,
+            img: '/imgs/item-box-1.png',
+            name: '小米CC9'
+          },{
+            id: 31,
+            img: '/imgs/item-box-2.png',
+            name: '小米8青春版'
+          },{
+            id: 32,
+            img: '/imgs/item-box-3.jpg',
+            name: 'Redmi K20 Pro'
+          },{
+            id: 33,
+            img: '/imgs/item-box-4.jpg',
+            name: '移动4G专区'
+          },
+        ],
+        [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]
+      ]
     };
   },
   // computed: {
@@ -152,10 +183,89 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./../assets/scss/base.scss";
+@import "./../assets/scss/mixin.scss";
+@import "./../assets/scss/config.scss";
 .index {
   .swiper-box {
+    .nav-menu {
+      position: absolute;
+      width: 264px;
+      height: 451px;
+      padding: 20px 0;
+      z-index: 2;
+      box-sizing: border-box;
+      background-color: #55585A6A;
+      // opacity: 0.6;
+      .menu-wrap {
+        position: relative;
+        .menu-item {
+          height: 41px;
+          line-height: 41px;
+          a {
+            position: relative;
+            display: block;
+            font-size: 14px;
+            color: $colorG;
+            padding-left: 30px;
+            &:after {
+              content: '';
+              @include bgImg(10px, 15px, '/imgs/icon-arrow.png');
+              position: absolute;
+              right: 30px;
+              top: 13px;  // (41px-15px)/2
+            }
+          }
+          &:hover {
+            background-color: $colorA;
+            .children {
+              display: block;
+            }
+          }
+          .children {
+            display: none;
+            width: 960px;
+            height: 449px;
+            background-color: $colorG;
+            position: absolute;
+            top: -20px;
+            left: 264px;
+            border: 1px solid $colorH;
+            box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
+            // opacity: 0.4;
+            ul {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              height: 75px;
+              li {
+                height: 75px;
+                line-height: 75px;
+                // width: 240px;
+                flex: 1;
+                padding-left: 23px;
+                a {
+                  color: $colorB;
+                  font-size: 14px;
+                  img {
+                    width: 42px;
+                    height: 35px;
+                    vertical-align: middle;
+                    margin-right: 15px;
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+      }
+    }
     .swiper-container {
       height: 451px;
+      .swiper-button-prev {
+        left: 274px;
+      }
       .swiper-slide.swiper-slide-active img {
         opacity: 1;
         transition-delay: 0.3s;
