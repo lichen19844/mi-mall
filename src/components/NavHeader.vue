@@ -259,7 +259,8 @@ export default {
         .item-menu {
           display: inline-block;
           color: #333333;
-          font-weight: bold;
+          font-size: 16px;
+          // font-weight: bold;
           line-height: 60px;
           margin-right: 20px;
           // border: 1px solid red;
