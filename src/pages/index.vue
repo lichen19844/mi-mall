@@ -9,9 +9,12 @@
               <div class="children">
                 <ul v-for="(item, index) of menuList" :key="index">
                   <li v-for="(sub, sub_index) of item" :key="sub_index">
-                    <a :href="sub ? '/#/product/'+sub.id : ''">
-                      <img :src="sub ? sub.img : 'imgs/item-box-1.png'" alt="">
-                      {{sub ? sub.name : '小米9'}}
+                    <a :href="sub ? '/#/product/' + sub.id : ''">
+                      <img
+                        :src="sub ? sub.img : 'imgs/item-box-1.png'"
+                        alt=""
+                      />
+                      {{ sub ? sub.name : "小米9" }}
                     </a>
                   </li>
                 </ul>
@@ -70,16 +73,53 @@
         </swiper>
       </div>
       <div class="ads-box">
-        <a :href="'/#/product/'+item.id" v-for="(item, index) of adsList" :key="index">
-          <img :src="item.img" alt="">
+        <a
+          :href="'/#/product/' + item.id"
+          v-for="(item, index) of adsList"
+          :key="index"
+        >
+          <img :src="item.img" alt="" />
         </a>
       </div>
       <div class="banner">
         <a href="/#/product/30">
-          <img src="/imgs/banner-1.png" alt="">
+          <img src="/imgs/banner-1.png" alt="" />
         </a>
       </div>
-      <div class="product-box"></div>
+    </div>
+    <div class="product-box">
+      <div class="container">
+        <h2>手机</h2>
+        <div class="wrapper">
+          <div class="banner-left">
+            <a href="/#/product/35">
+              <img src="imgs/mix-alpha.jpg" alt="" />
+            </a>
+          </div>
+          <div class="list-box">
+            <div class="list" v-for="(arr, index) of phoneList" :key="index">
+              <div
+                class="item"
+                v-for="(subArr, subIndex) of arr"
+                :key="subIndex"
+              >
+                <span>新品</span>
+                <div class="item-img">
+                  <img
+                    src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0099822e42b4428cb25c4cdebc6ca53d.jpg?thumb=1&w=400&h=400&f=webp&q=90"
+                    alt=""
+                  />
+                </div>
+                <div class="item-info">
+                  <span>小米9 6GB+128GB</span>
+                  <p class="desc">骁龙855，索尼4800万超广角微距</p>
+                  <p class="price">2999元</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <service-bar></service-bar>
   </div>
@@ -150,42 +190,53 @@ export default {
         [
           {
             id: 30,
-            img: '/imgs/item-box-1.png',
-            name: '小米CC9'
-          },{
+            img: "/imgs/item-box-1.png",
+            name: "小米CC9",
+          },
+          {
             id: 31,
-            img: '/imgs/item-box-2.png',
-            name: '小米8青春版'
-          },{
+            img: "/imgs/item-box-2.png",
+            name: "小米8青春版",
+          },
+          {
             id: 32,
-            img: '/imgs/item-box-3.jpg',
-            name: 'Redmi K20 Pro'
-          },{
+            img: "/imgs/item-box-3.jpg",
+            name: "Redmi K20 Pro",
+          },
+          {
             id: 33,
-            img: '/imgs/item-box-4.jpg',
-            name: '移动4G专区'
+            img: "/imgs/item-box-4.jpg",
+            name: "移动4G专区",
           },
         ],
-        [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
       ],
       adsList: [
         {
           id: 33,
-          img: '/imgs/ads/ads-1.png'
+          img: "/imgs/ads/ads-1.png",
         },
         {
           id: 48,
-          img: '/imgs/ads/ads-2.jpg'
+          img: "/imgs/ads/ads-2.jpg",
         },
         {
           id: 45,
-          img: '/imgs/ads/ads-3.png'
+          img: "/imgs/ads/ads-3.png",
         },
         {
           id: 47,
-          img: '/imgs/ads/ads-4.jpg'
-        }
-      ]
+          img: "/imgs/ads/ads-4.jpg",
+        },
+      ],
+      phoneList: [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+      ],
     };
   },
   // computed: {
@@ -221,7 +272,7 @@ export default {
       padding: 20px 0;
       z-index: 2;
       box-sizing: border-box;
-      background-color: #55585A6A;
+      background-color: #55585a6a;
       // opacity: 0.6;
       .menu-wrap {
         position: relative;
@@ -235,11 +286,11 @@ export default {
             color: $colorG;
             padding-left: 30px;
             &:after {
-              content: '';
-              @include bgImg(10px, 15px, '/imgs/icon-arrow.png');
+              content: "";
+              @include bgImg(10px, 15px, "/imgs/icon-arrow.png");
               position: absolute;
               right: 30px;
-              top: 13px;  // (41px-15px)/2
+              top: 13px; // (41px-15px)/2
             }
           }
           &:hover {
@@ -279,7 +330,6 @@ export default {
                     margin-right: 15px;
                   }
                 }
-                
               }
             }
           }
@@ -320,6 +370,100 @@ export default {
     margin-bottom: 50px;
     img {
       width: 100%;
+    }
+  }
+  .product-box {
+    background-color: $colorJ;
+    padding: 30px 0 50px;
+    h2 {
+      font-size: $fontF;
+      color: $colorB;
+      height: 21px;
+      line-height: 21px;
+      margin-bottom: 20px;
+    }
+    .wrapper {
+      display: flex;
+      .banner-left {
+        margin-right: 16px;
+        img {
+          width: 234px;
+          height: 619px;
+        }
+      }
+      .list-box {
+        @include flex();
+        flex-direction: column;
+        justify-content: space-around;
+        .list {
+          @include flex();
+          flex-direction: row;
+          justify-content: space-between;
+          // flex-wrap: wrap;
+          width: 976px;
+          margin-bottom: 14px;
+          // border: 1px solid;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          .item {
+            @include flex();
+            flex-direction: column;
+            justify-content: space-between;
+            width: 236px;
+            height: 302px;
+            // border: 1px solid;
+            background-color: $colorG;
+            text-align: center;
+            padding-bottom: 30px;
+            box-sizing: border-box;
+            // 鼠标放置后的动效
+            transition: all .2s linear;
+            &:hover {
+              color: red;
+              cursor: pointer;
+              // transform:translate(0, -3px);
+              transform:translate3d(0,-2px,0);
+              box-shadow: 0 15px 30px rgba(0,0,0,.1)
+            }
+            
+            span {
+            }
+            .item-img {
+              img {
+                height: 195px;
+                width: 190px;
+              }
+              // border: 1px solid;
+            }
+            .item-info {
+              span {
+                font-size: $fontJ;
+                color: $colorB;
+                line-height: $fontJ;
+                font-weight: bold;
+              }
+              .desc {
+                color: $colorD;
+                line-height: $fontJ;
+                margin: 6px auto 13px;
+              }
+              .price {
+                color: #f20a0a;
+                font-size: $fontJ;
+                font-weight: bold;
+                cursor: pointer;
+                &:after {
+                  content: "";
+                  @include bgImg(22px, 22px, "/imgs/icon-cart-hover.png");
+                  margin-left: 5px;
+                  vertical-align: middle;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
