@@ -103,17 +103,17 @@
                 v-for="(subArr, subIndex) of arr"
                 :key="subIndex"
               >
-                <span>新品</span>
+                <span class="new-pro" :class="{'kill-pro':subIndex%2==0}">{{subIndex%2==0 ? '秒杀' :'新品'}}</span>
                 <div class="item-img">
                   <img
-                    src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0099822e42b4428cb25c4cdebc6ca53d.jpg?thumb=1&w=400&h=400&f=webp&q=90"
+                    :src="subArr.mainImage"
                     alt=""
                   />
                 </div>
                 <div class="item-info">
-                  <span>小米9 6GB+128GB</span>
-                  <p class="desc">骁龙855，索尼4800万超广角微距</p>
-                  <p class="price">2999元</p>
+                  <p class="pro-name">{{subArr.name}}</p>
+                  <p class="desc">{{subArr.subtitle}}</p>
+                  <p class="price">{{subArr.price | currency}}</p>
                 </div>
               </div>
             </div>
@@ -256,6 +256,27 @@ export default {
   directives: {
     swiper: directive,
   },
+  mounted () {
+    this.init();
+  },
+  methods: {
+    init () {
+      this.axios.get('/products', {
+        params: {
+          categoryId: 100012,
+          pageSize: 8
+        }
+      }).then((res) => {
+        this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
+      })
+    }
+  },
+  filters: {
+    currency (val) {
+      if(!val) return 0.00
+      return '￥' + val.toFixed(2) + '元'
+    }
+  }
 };
 </script>
 
@@ -395,6 +416,9 @@ export default {
         @include flex();
         flex-direction: column;
         justify-content: space-around;
+        height: 619px;
+        // border: 1px solid;
+        box-sizing: border-box;
         .list {
           @include flex();
           flex-direction: row;
@@ -411,33 +435,46 @@ export default {
             flex-direction: column;
             justify-content: space-between;
             width: 236px;
-            height: 302px;
+            height: 270px;
             // border: 1px solid;
             background-color: $colorG;
             text-align: center;
             padding-bottom: 30px;
-            box-sizing: border-box;
+            // box-sizing: border-box;
+
             // 鼠标放置后的动效
             transition: all .2s linear;
             &:hover {
-              color: red;
-              cursor: pointer;
+              // color: red;
+              // cursor: pointer;
               // transform:translate(0, -3px);
               transform:translate3d(0,-2px,0);
               box-shadow: 0 15px 30px rgba(0,0,0,.1)
             }
             
             span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              line-height: 24px;
+              font-size: $fontJ;
+              color: $colorG;
+              &.new-pro {
+                background-color: #7ECF68;
+              }
+              &.kill-pro {
+                background-color: #E82626;
+              }
             }
             .item-img {
               img {
-                height: 195px;
-                width: 190px;
+                height: 130px;
+                width: auto;
               }
               // border: 1px solid;
             }
             .item-info {
-              span {
+              .pro-name {
                 font-size: $fontJ;
                 color: $colorB;
                 line-height: $fontJ;
