@@ -2,6 +2,7 @@
   <div class="index">
     <div class="container">
       <div class="swiper-box">
+        <!-- 商品分类 -->
         <div class="nav-menu">
           <ul class="menu-wrap">
             <li class="menu-item">
@@ -58,6 +59,7 @@
             </li>
           </ul>
         </div>
+        <!-- 轮播图 -->
         <swiper
           ref="mySwiper"
           :options="swiperOptions"
@@ -72,6 +74,8 @@
           <!-- <div class="swiper-scrollbar"></div> -->
         </swiper>
       </div>
+
+      <!-- 四宫格广告 -->
       <div class="ads-box">
         <a
           :href="'/#/product/' + item.id"
@@ -81,12 +85,16 @@
           <img :src="item.img" alt="" />
         </a>
       </div>
+
+      <!-- banner广告 -->
       <div class="banner">
         <a href="/#/product/30">
           <img src="/imgs/banner-1.png" alt="" />
         </a>
       </div>
     </div>
+
+    <!-- 手机商品列表 -->
     <div class="product-box">
       <div class="container">
         <h2>手机</h2>
@@ -121,12 +129,25 @@
         </div>
       </div>
     </div>
+
     <service-bar></service-bar>
+
+    <modal 
+      title="提示" 
+      sureText="查看购物车" 
+      btnType="1" 
+      modalType="middle"
+      :showModal="true">
+      <template v-slot:body>
+        <p>商品添加成功！</p>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
 import ServiceBar from "./../components/ServiceBar";
+import Modal from "./../components/Modal";
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -252,6 +273,7 @@ export default {
     ServiceBar,
     Swiper,
     SwiperSlide,
+    Modal
   },
   directives: {
     swiper: directive,
@@ -264,9 +286,10 @@ export default {
       this.axios.get('/products', {
         params: {
           categoryId: 100012,
-          pageSize: 8
+          pageSize: 14
         }
       }).then((res) => {
+        res.list = res.list.slice(6, 14);
         this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
       })
     }
@@ -468,7 +491,7 @@ export default {
             }
             .item-img {
               img {
-                height: 130px;
+                height: 160px;
                 width: auto;
               }
               // border: 1px solid;
