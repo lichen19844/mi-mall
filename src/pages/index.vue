@@ -130,8 +130,10 @@
       </div>
     </div>
 
+    <!-- 售后、服务 -->
     <service-bar></service-bar>
 
+    <!-- 购物车弹出层 -->
     <modal 
       title="提示" 
       sureText="查看购物车" 
