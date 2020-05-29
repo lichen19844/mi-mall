@@ -2,10 +2,18 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyLoad from 'vue-lazyload'
+
 import App from './App.vue'
 // import env from './env'
 
 Vue.use(VueAxios, axios);
+Vue.use(VueLazyLoad,{
+  // preLoad: 1.3,
+  // error:'./static/error.png',
+  loading:'/imgs/loading-svg/loading-bars.svg',
+  // attempt: 1
+})
 Vue.config.productionTip = false
 
 // mock开关

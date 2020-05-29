@@ -11,10 +11,8 @@
                 <ul v-for="(item, index) of menuList" :key="index">
                   <li v-for="(sub, sub_index) of item" :key="sub_index">
                     <a :href="sub ? '/#/product/' + sub.id : ''">
-                      <img
-                        :src="sub ? sub.img : 'imgs/item-box-1.png'"
-                        alt=""
-                      />
+                      <!-- <img :src="sub ? sub.img : 'imgs/item-box-1.png'" alt="" /> -->
+                      <img v-lazy="sub ? sub.img : 'imgs/item-box-1.png'" alt="" />
                       {{ sub ? sub.name : "小米9" }}
                     </a>
                   </li>
@@ -66,7 +64,10 @@
           class="swiper-scrollbar"
         >
           <swiper-slide v-for="item in slideList" :key="item.id">
-            <a :href="'/#/product/' + item.id"><img :src="item.img"/></a>
+            <a :href="'/#/product/' + item.id">
+              <!-- <img :src="item.img"/> -->
+              <img v-lazy="item.img"/>
+            </a>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
@@ -82,14 +83,16 @@
           v-for="(item, index) of adsList"
           :key="index"
         >
-          <img :src="item.img" alt="" />
+          <!-- <img :src="item.img" alt="" /> -->
+          <img v-lazy="item.img" alt="" />
         </a>
       </div>
 
       <!-- banner广告 -->
       <div class="banner">
         <a href="/#/product/30">
-          <img src="/imgs/banner-1.png" alt="" />
+          <!-- <img src="/imgs/banner-1.png" alt="" /> -->
+          <img v-lazy="'/imgs/banner-1.png'" alt="" />
         </a>
       </div>
     </div>
@@ -101,7 +104,7 @@
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#/product/35">
-              <img src="imgs/mix-alpha.jpg" alt="" />
+              <img v-lazy="'imgs/mix-alpha.jpg'" alt="" />
             </a>
           </div>
           <div class="list-box">
@@ -113,15 +116,13 @@
               >
                 <span class="new-pro" :class="{'kill-pro':subIndex%2==0}">{{subIndex%2==0 ? '秒杀' :'新品'}}</span>
                 <div class="item-img">
-                  <img
-                    :src="subArr.mainImage"
-                    alt=""
-                  />
+                  <!-- <img :src="subArr.mainImage" alt="" /> -->
+                  <img v-lazy="subArr.mainImage" alt="" />
                 </div>
                 <div class="item-info">
                   <p class="pro-name">{{subArr.name}}</p>
                   <p class="desc">{{subArr.subtitle}}</p>
-                  <p class="price">{{subArr.price | currency}}</p>
+                  <p class="price" @click="addCart(subArr.id)">{{subArr.price | currency}}</p>
                 </div>
               </div>
             </div>
@@ -139,7 +140,10 @@
       sureText="查看购物车" 
       btnType="1" 
       modalType="middle"
-      :showModal="true">
+      :showModal="showModal"
+      @submit="goToCart"
+      @cancel="showModal=false"
+    >
       <template v-slot:body>
         <p>商品添加成功！</p>
       </template>
@@ -260,6 +264,7 @@ export default {
         [1, 1, 1, 1],
         [1, 1, 1, 1],
       ],
+      showModal: false
     };
   },
   // computed: {
@@ -294,6 +299,20 @@ export default {
         res.list = res.list.slice(6, 14);
         this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
       })
+    },
+    addCart () {
+      this.showModal = true;
+      // this.axios.post('/carts', {
+      //   productId: id,
+      //   selected: true
+      // }).then(() => {
+
+      // }).catch(() => {
+      //   this.showModal = true
+      // })
+    },
+    goToCart () {
+      this.$router.push('/cart')
     }
   },
   filters: {

@@ -32,10 +32,8 @@
                 <li class="product" v-for="(item, index) of phoneList" :key="index">
                   <a :href="`/#/product/${item.id}`" target="_blank">
                     <div class="pro-img">
-                      <img
-                        :src="item.mainImage"
-                        :alt="item.subtitle"
-                      />
+                      <!-- <img :src="item.mainImage" :alt="item.subtitle" /> -->
+                      <img v-lazy="item.mainImage" :alt="item.subtitle" />
                     </div>
                     <div class="pro-name">{{item.name}}</div>
                     <div class="pro-price">{{item.price | currency}}</div>
@@ -261,8 +259,9 @@ export default {
           color: #333333;
           font-size: 16px;
           // font-weight: bold;
+          height: 60px;
           line-height: 60px;
-          margin-right: 20px;
+          padding-right: 20px;
           // border: 1px solid red;
           span {
             cursor: pointer;
