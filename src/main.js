@@ -3,6 +3,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
+import VueCookie from 'vue-cookie'
 
 import App from './App.vue'
 // import env from './env'
@@ -13,11 +14,12 @@ Vue.use(VueLazyLoad,{
   // error:'./static/error.png',
   loading:'/imgs/loading-svg/loading-bars.svg',
   // attempt: 1
-})
+});
+Vue.use(VueCookie);
 Vue.config.productionTip = false
 
 // mock开关
-const mock = true;
+const mock = false;
 if (mock) {
   require('./mock/api')
 }
@@ -37,6 +39,8 @@ axios.interceptors.response.use(function(response) {
     window.location.href = '/#/login'
   } else {
     alert(res.msg);
+    // 抛出异常
+    return Promise.reject(res)
   }
 })
 

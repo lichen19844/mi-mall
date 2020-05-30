@@ -42,11 +42,34 @@ export default {
   name: 'login',
   data(){
     return {
-
+      username: '',
+      password: '',
+      userId: '',  // 当做cookie传给后端使用
     }
   },
   methods:{
-
+    login () {
+      let { username, password } = this;
+      this.axios.post('/user/login', {
+        username,
+        password
+      }).then((res) => {
+        console.log('res ', res)
+        this.$cookie.set('userId', res.id, {expires: '1M'});
+        // to-do 保存用户名
+        this.$router.push('/index');
+      })
+    },
+    register () {
+      this.axios.post('/user/register', {
+        username: 'admin1',
+        password: 'admin1',
+        email: 'admin1@163.com'
+      }).then(() => {
+        alert('注册成功')
+        this.$router.push('/index');
+      })
+    }
   }
 }
 </script>
@@ -92,12 +115,12 @@ export default {
           height:50px;
           border:1px solid #E5E5E5;
           margin-bottom:20px;
-          box-sizing: border-box;
           input{
             width: 100%;
             height: 100%;
             border: none;
             padding: 18px;
+            box-sizing: border-box;
           }
         }
         .btn{
