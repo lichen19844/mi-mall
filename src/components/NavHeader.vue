@@ -142,7 +142,8 @@ export default {
   name: "nav-header",
   data () {
     return {
-      username: 'jack',
+      // username: 'jack',
+      username: this.$store.state.stateInfo.username,
       phoneList: []
     }
   },
