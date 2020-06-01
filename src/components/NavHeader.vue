@@ -14,7 +14,7 @@
           <a href="javascript:;">注册</a>
           <a href="javascript:;">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goToCart"
-            ><span class="icon-cart"></span>购物车</a
+            ><span class="icon-cart"></span>购物车({{cartCount}})</a
           >
         </div>
       </div>
@@ -138,14 +138,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "nav-header",
   data () {
     return {
       // username: 'jack',
-      username: this.$store.state.stateInfo.username,
+      // username: this.$store.state.stateInfo.username,
       phoneList: []
     }
+  },
+  computed: {
+    // username () {
+    //   return this.$store.state.stateInfo.username
+    // },
+    // cartCount () {
+    //   return this.$store.state.stateInfo.cartCount
+    // },
+    ...mapState(['username', 'cartCount'])
   },
   filters: {
     currency (val) {
