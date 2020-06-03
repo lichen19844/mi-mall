@@ -9,12 +9,12 @@
           <a href="javascript:;">云服务</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="username">{{this.username}}</a>
           <a href="javascript:;" v-else @click="login">登录</a>
           <a href="javascript:;">注册</a>
           <a href="javascript:;">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goToCart"
-            ><span class="icon-cart"></span>购物车({{cartCount}})</a
+            ><span class="icon-cart"></span>购物车({{this.cartCount}})</a
           >
         </div>
       </div>
@@ -150,10 +150,10 @@ export default {
   },
   computed: {
     // username () {
-    //   return this.$store.state.stateInfo.username
+    //   return this.$store.state.username
     // },
     // cartCount () {
-    //   return this.$store.state.stateInfo.cartCount
+    //   return this.$store.state.cartCount
     // },
     ...mapState(['username', 'cartCount'])
   },

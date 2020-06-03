@@ -1,7 +1,5 @@
-const stateInfo = {
-  username: '',
-  cartCount: 0
-}
-export default {
-  stateInfo
-}
+export default
+  {
+    username: '',
+    cartCount: 0
+  }
