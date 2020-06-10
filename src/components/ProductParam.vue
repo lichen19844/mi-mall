@@ -25,6 +25,7 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.initHeight);
   },
+  // 页面销毁时移除window全局事件，否则会在其它页面一样加载
   destroyed() {
     window.removeEventListener("scroll", this.initHeight, true);
   },
