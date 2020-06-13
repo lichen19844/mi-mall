@@ -2,7 +2,7 @@
   <div class="nav-bar" :class="{ is_fixed: isFixed }">
     <div class="container">
       <div class="product-title">
-        小米8
+        {{title}}
       </div>
       <div class="product-param">
         <a href="javascript:;">概述</a><span>|</span>
@@ -17,6 +17,9 @@
 <script>
 export default {
   name: "nav-bar",
+  props: {
+    title: String
+  },
   data() {
     return {
       isFixed: false,
@@ -48,6 +51,7 @@ export default {
   height: 70px;
   line-height: 70px;
   background-color: $colorG;
+  z-index: 10;
   &.is_fixed {
     position: fixed;
     top: 0;
