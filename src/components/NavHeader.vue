@@ -233,32 +233,7 @@ export default {
       // display: flex;
       // justify-content: space-between;
       // align-items: center;
-      .header-logo {
-        display: inline-block;
-        width: 55px;
-        height: 55px;
-        background-color: #ff6600;
-        a {
-          display: inline-block;
-          width: 114px;
-          height: 55px;
-          &:before {
-            content: "";
-            @include bgImg(55px, 55px, "/imgs/mi-logo.png", 55px);
-            transition: margin 0.4s;
-            // border: 1px solid green;
-          }
-          &:after {
-            content: "";
-            @include bgImg(55px, 55px, "/imgs/mi-home.png", 55px);
-            transition: margin 0.4s;
-            // border: 1px solid red;
-          }
-          &:hover:before {
-            margin-left: -55px;
-          }
-        }
-      }
+
       .header-menu {
         display: inline-block;
         // 在flex布局中靠宽度来控制显示位置

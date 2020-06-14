@@ -1,3 +1,5 @@
+@import './mixin.scss';
+
 .container {
   position: relative;
   width: 1226px;
@@ -27,4 +29,31 @@ input {
 }
 .clearfix:after {
   clear: both;
+}
+// 公共Logo样式
+.header-logo {
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background-color: #ff6600;
+  a {
+    display: inline-block;
+    width: 114px;
+    height: 55px;
+    &:before {
+      content: "";
+      @include bgImg(55px, 55px, "/imgs/mi-logo.png", 55px);
+      transition: margin 0.4s;
+      // border: 1px solid green;
+    }
+    &:after {
+      content: "";
+      @include bgImg(55px, 55px, "/imgs/mi-home.png", 55px);
+      transition: margin 0.4s;
+      // border: 1px solid red;
+    }
+    &:hover:before {
+      margin-left: -55px;
+    }
+  }
 }
