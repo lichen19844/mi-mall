@@ -65,7 +65,7 @@
           <div class="total fr">
             合计：<span>{{ cartTotalPrice }}</span
             >元
-            <a href="javascript:;" class="btn">去结算</a>
+            <a href="javascript:;" class="btn" @click="order">去结算</a>
           </div>
         </div>
       </div>
@@ -98,6 +98,11 @@ export default {
   mounted() {
     this.getCartList();
   },
+  computed: {
+    cartCount () {
+      return this.$store.state.cartCount
+    }
+  },
   methods: {
     // 获取购物车列表
     getCartList() {
@@ -109,7 +114,7 @@ export default {
     // 更新购物车状态
     updateCart(item, type) {
       let quantity = item.quantity,
-        selected = item.productSelected;
+          selected = item.productSelected;
       if (type == "-") {
         if (quantity == 1) {
           alert("商品至少保留一件");
@@ -118,7 +123,7 @@ export default {
         quantity = --quantity;
       } else if (type == "+") {
         if (quantity >= item.productStock) {
-          alert("商品不能超过库存数量");
+          alert("购买商品不能超过库存数量");
           return;
         }
         ++quantity;
@@ -155,9 +160,23 @@ export default {
         this.renderData(res);
       });
     },
+    
+    // 购物车结算
+    order () {
+      // 判断是否有商品被勾选，可以使用map\for\filter等方法，这里使用every
+      let isCheck = this.list.every(item => !item.productSelected);
+      if (isCheck) {
+        alert('请选择一件商品');
+      } else {
+        this.$router.push('/order/confirm')
+      }
+    },
+
     // 公共赋值
     renderData(res) {
       this.list = res.cartProductVoList || [];
+      // 实时更新购物车数量，后退页面有效
+      this.$store.state.cartCount = res.cartTotalQuantity;
       this.allChecked = res.selectedAll;
       this.cartTotalPrice = res.cartTotalPrice;
       this.checkedNum = this.list.filter((item) => item.productSelected).length;
