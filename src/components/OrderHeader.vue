@@ -31,6 +31,7 @@ export default {
 <style lang="scss">
   .order-header {
     padding: 30px 0;
+    border-bottom: 2px solid #FF6600;
     // height: 112px;
     // line-height: 112px;
     .header-logo {
@@ -46,10 +47,15 @@ export default {
       color: #333333;
       float: left;
       margin-left: 54px;
+      h2 {
+        font-size: 28px;
+        color: #333333;
+      }
       span {
         font-size: 14px;
         margin-left: 17px;
         color: #999999;
+        font-weight: 200;
       }
     }
     .username {
