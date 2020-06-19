@@ -38,6 +38,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
+import { Message } from 'element-ui';
 export default {
   name: 'login',
   data(){
@@ -70,7 +71,8 @@ export default {
         password: 'admin1',
         email: 'admin1@163.com'
       }).then(() => {
-        alert('注册成功')
+        // alert('注册成功')
+        Message.info("购买商品不能超过库存数量");
         this.$router.push('/index');
       })
     },
