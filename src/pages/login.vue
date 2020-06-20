@@ -72,7 +72,7 @@ export default {
         email: 'admin1@163.com'
       }).then(() => {
         // alert('注册成功')
-        Message.info("购买商品不能超过库存数量");
+        Message.info("注册成功");
         this.$router.push('/index');
       })
     },
