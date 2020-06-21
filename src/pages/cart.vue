@@ -9,14 +9,16 @@
       <div class="container">
         <div class="cart-box">
           <ul class="cart-item-head">
+            <!-- <li class="col-1" v-if="cartCount"> -->
             <li class="col-1">
-              <span
+              <span 
                 class="checkbox"
-                v-bind:class="{ checked: allChecked }"
+                v-bind:class="{ checked: allChecked && cartCount }"
                 @click="toggleAll"
               ></span
               >全选
             </li>
+            <!-- <li v-if="!cartCount" class="col-1"></li> -->
             <li class="col-3">商品名称</li>
             <li class="col-1">单价</li>
             <li class="col-2">数量</li>
@@ -180,7 +182,7 @@ export default {
     // 公共赋值
     renderData(res) {
       this.list = res.cartProductVoList || [];
-      // 实时更新购物车数量，后退页面有效
+      // 实时更新购物车数量，使后退页面有效
       this.$store.state.cartCount = res.cartTotalQuantity;
       this.allChecked = res.selectedAll;
       this.cartTotalPrice = res.cartTotalPrice;

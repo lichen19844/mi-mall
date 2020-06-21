@@ -168,6 +168,10 @@ export default {
   },
   mounted () {
     this.getProductList()
+    let params = this.$route.params
+    if(params && params.from === 'login') {
+      this.getCartCount()
+    }
   },
   methods: {
     login () {
@@ -179,6 +183,13 @@ export default {
         this.$cookie.set('userId', '', {expires: '-1'})
         this.$store.dispatch('saveUserName', '')
         this.$store.dispatch('saveCartCount', 0)
+      })
+    },
+    getCartCount () {
+      this.axios.get('/carts/products/sum').then((res = 0) => {
+        console.log('res is ', res)
+        // to-do 将数据保存到vuex中
+        this.$store.dispatch('saveCartCount', res)
       })
     },
     getProductList () {

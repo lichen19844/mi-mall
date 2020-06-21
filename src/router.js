@@ -24,8 +24,8 @@ export default new Router({
       redirect: '/index',
       children: [
         {
-          path: '/index',
-          name: 'index',
+          path: '/index', // query传参
+          name: 'index',  // params传参
           component: Index
         },
         {

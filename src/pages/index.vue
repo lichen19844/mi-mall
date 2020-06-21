@@ -301,16 +301,20 @@ export default {
       })
     },
     addCart (id) {
-      this.showModal = true;
       this.axios.post('/carts', {
         productId: id,
         selected: true
       }).then((res) => {
         this.showModal = true;
         this.$store.dispatch('saveCartCount', res.cartTotalQuantity);
-      }).catch(() => {
-        this.showModal = true
       })
+      // .catch((res) => {
+      //  if (res.status == 10) {
+      //    this.$router.push('/login')
+      //  } else {
+      //    this.$message.error(res.msg)
+      //  }
+      // })
     },
     goToCart () {
       this.$router.push('/cart')

@@ -56,13 +56,30 @@ export default {
         password
       }).then((res) => {
         console.log('res ', res)
-        this.$cookie.set('userId', res.id, {expires: '1M'});
+        // this.$cookie.set('userId', res.id, {expires: '1M'});
+        this.$cookie.set('userId', res.id, {expires: 'Session'});
 
         // to-do 保存用户名
         // this.$store.dispatch('saveUserName', res.username)
         this.saveUserName(res.username)
+        // 等同于
+        // this.$store.state.username = res.username
+        // this.$router.push('/index');
+        // query穿参
+        // this.$router.push({
+        //   path: '/index',
+        //   query: {
+        //     from: 'login'
+        //   }
+        // });
         
-        this.$router.push('/index');
+        // params传参
+        this.$router.push({
+          name: 'index',
+          params: {
+            from: 'login'
+          }
+        });
       })
     },
     register () {

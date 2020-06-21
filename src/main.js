@@ -40,11 +40,13 @@ axios.interceptors.response.use(function(response) {
   let path = location.hash;
   if (res.status === 0) { // axios内部规定的status值
     return res.data
-  } else if (res.status === 10) {
+  } 
+  else if (res.status === 10) {
     if (path !== '#/index') {
       window.location.href = '/#/login'
     }
-  } else {
+  } 
+  else {
     // alert(res.msg);
     Message.warning('res.msg')
     // 抛出异常
