@@ -308,13 +308,9 @@ export default {
         this.showModal = true;
         this.$store.dispatch('saveCartCount', res.cartTotalQuantity);
       })
-      // .catch((res) => {
-      //  if (res.status == 10) {
-      //    this.$router.push('/login')
-      //  } else {
-      //    this.$message.error(res.msg)
-      //  }
-      // })
+      .catch(() => {
+        this.$message.error('please login or register firstly')
+      })
     },
     goToCart () {
       this.$router.push('/cart')

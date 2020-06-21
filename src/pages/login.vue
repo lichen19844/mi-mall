@@ -73,7 +73,7 @@ export default {
         //   }
         // });
         
-        // params传参
+        // params传参，跳转路由
         this.$router.push({
           name: 'index',
           params: {

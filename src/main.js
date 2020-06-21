@@ -37,18 +37,20 @@ axios.defaults.timeout = 8000;
 // 接口错误拦截
 axios.interceptors.response.use(function(response) {
   let res = response.data;
-  let path = location.hash;
+  // let path = location.hash;
   if (res.status === 0) { // axios内部规定的status值
+    console.log('res.status is 0')
     return res.data
   } 
   else if (res.status === 10) {
-    if (path !== '#/index') {
+    console.log('res.status is 10')
+    // if (path !== '#/index') {
       window.location.href = '/#/login'
-    }
+    // }
   } 
   else {
     // alert(res.msg);
-    Message.warning('res.msg')
+    Message.warning(res.msg)
     // 抛出异常
     return Promise.reject(res)
   }
