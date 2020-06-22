@@ -61,8 +61,8 @@
           <div class="cart-tip fl">
             <a href="/#/index">继续购物</a>
             共<span>{{ list.length }}</span
-            >件商品，已选择<span>{{ checkedNum }}</span
-            >件
+            >种商品，已选择<span>{{ checkedNum }}</span
+            >种
           </div>
           <div class="total fr">
             合计：<span>{{ cartTotalPrice }}</span
@@ -181,12 +181,12 @@ export default {
 
     // 公共赋值
     renderData(res) {
-      this.list = res.cartProductVoList || [];
+      this.list = res.cartProductVoList || []; //获取购物车中所有商品种类的数据
       // 实时更新购物车数量，使后退页面有效
       this.$store.state.cartCount = res.cartTotalQuantity;
       this.allChecked = res.selectedAll;
-      this.cartTotalPrice = res.cartTotalPrice;
-      this.checkedNum = this.list.filter((item) => item.productSelected).length;
+      this.cartTotalPrice = res.cartTotalPrice; //商品总金额
+      this.checkedNum = this.list.filter((item) => item.productSelected).length; //选中商品的种类数据
     },
   },
 };
