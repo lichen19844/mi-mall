@@ -26,7 +26,7 @@
           <div class="item-address">
             <h2 class="addr-title">收货地址</h2>
             <div class="addr-list clearfix">
-              <div class="addr-info" :class="{'checked':index == checkIndex}"  v-for="(item,index) in list" :key="index">
+              <div class="addr-info" :class="{'checked':index == checkIndex}" @click="checkIndex = index" v-for="(item,index) in addressList" :key="index">
                 <h2>{{item.receiverName}}</h2>
                 <div class="phone">{{item.receiverMobile}}</div>
                 <div class="street">{{item.receiverProvince + ' ' + item.receiverCity + ' ' + item.receiverDistrict + ' ' + item.receiverAddress}}</div>
@@ -95,7 +95,7 @@
           </div>
           <div class="btn-group">
             <a href="/#/cart" class="btn btn-default btn-large">返回购物车</a>
-            <a href="javascript:;" class="btn btn-large" >去结算</a>
+            <a href="javascript:;" class="btn btn-large" @click="orderSubmit">去结算</a>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
     
     <modal
       title="新增确认"
-      btnType="1"
+      btnType="3"
       :showModal="showEditModal"
       @cancel="showEditModal=false"
       @submit="submitAddress"
@@ -143,9 +143,10 @@
         </div>
       </template>
     </modal>
+    
     <modal
       title="删除确认"
-      btnType="1"
+      btnType="3"
       :showModal="showDelModal"
       @cancel="showDelModal=false"
       @submit="submitAddress"
@@ -163,7 +164,7 @@ export default{
   name:'order-confirm',
   data(){
     return {
-      list:[],//收货地址列表
+      addressList:[],//收货地址列表
       cartList:[],//购物车中需要结算的商品列表
       cartTotalPrice:0,//商品总金额
       count:0,//商品结算数量
@@ -185,13 +186,14 @@ export default{
   methods:{
     getAddressList(){
       this.axios.get('/shippings').then((res)=>{
-        this.list = res.list;
+        this.addressList = res.list;
       })
     },
     // 设置好标志位，待submitAddress操作
     // 打开新增地址弹框
     newAddressModal(){
       this.userAction = 0;
+      // 置空待用
       this.checkedItem = {};
       this.showEditModal = true;
     },
@@ -203,8 +205,10 @@ export default{
     },
     // 删除地址
     delAddress(item){
+      //挂载到this上
       this.checkedItem = item;
       this.userAction = 2;
+      // 展示弹窗
       this.showDelModal = true;
     },
     // 地址删除、编辑、新增功能
@@ -219,12 +223,22 @@ export default{
       }else {
         method = 'delete',url = `/shippings/${checkedItem.id}`;
       }
-      if(userAction == 0 || userAction ==1){
-        let { receiverName, receiverMobile, receiverProvince, receiverCity, receiverDistrict, receiverAddress, receiverZip} = checkedItem;
-        let errMsg='';
-        if(!receiverName){
+      if (userAction == 0 || userAction == 1) {
+        let {receiverName, receiverMobile, receiverProvince, receiverCity, receiverDistrict, receiverAddress, receiverZip} = checkedItem
+        params = {
+          receiverName,
+          receiverMobile,
+          receiverProvince,
+          receiverCity,
+          receiverDistrict,
+          receiverAddress,
+          receiverZip
+        }
+        let errMsg;
+        if (!receiverName) {
           errMsg = '请输入收货人名称';
-        }else if(!receiverMobile || !/\d{11}/.test(receiverMobile)){
+        }
+        if (!receiverMobile || !/\d{11}/.test(receiverMobile)) {
           errMsg = '请输入正确格式的手机号';
         }else if(!receiverProvince){
           errMsg = '请选择省份';
@@ -235,26 +249,19 @@ export default{
         }else if(!/\d{6}/.test(receiverZip)){
           errMsg = '请输入六位邮编';
         }
-        if(errMsg){
-          this.$message.error(errMsg);
-          return;
-        }
-        params = {
-          receiverName,
-          receiverMobile,
-          receiverProvince,
-          receiverCity,
-          receiverDistrict,
-          receiverAddress,
-          receiverZip
+        if (errMsg) {
+          this.$message.error(errMsg)
+          return
         }
       }
-      this.axios[method](url,params).then(()=>{
+      this.axios[method](url, params).then(()=>{
         this.closeModal();
+        // 刷新地址列表
         this.getAddressList();
         this.$message.success('操作成功');
       });
     },
+    // 初始化标志位
     closeModal(){
       this.checkedItem = {};
       this.userAction = '';
@@ -263,21 +270,23 @@ export default{
     },
     getCartList(){
       this.axios.get('/carts').then((res)=>{
-        let list = res.cartProductVoList; //获取购物车中所有商品种类的数据
+        let goodslist = res.cartProductVoList; //获取购物车中所有商品种类的数据
         this.cartTotalPrice = res.cartTotalPrice; //商品总金额
-        this.cartList = list.filter(item=>item.productSelected);  // 过滤选中的商品
+        this.cartList = goodslist.filter(item=>item.productSelected);  // 过滤选中的商品
         this.cartList.map((item)=>{
-          this.count += item.quantity;  // 选中商品的累计数量
+        this.count += item.quantity;  // 选中商品的累计数量
         })
       })
     },
     // 订单提交
     orderSubmit(){
-      let item = this.list[this.checkIndex];
+      // 借用索引来锁定地址
+      let item = this.addressList[this.checkIndex];
       if(!item){
         this.$message.error('请选择一个收货地址');
         return;
       }
+      // 创建订单
       this.axios.post('/orders',{
         shippingId:item.id
       }).then((res)=>{
