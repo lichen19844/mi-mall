@@ -288,10 +288,12 @@ export default{
       }
       // 创建订单
       this.axios.post('/orders',{
+        // 地址id
         shippingId:item.id
       }).then((res)=>{
         this.$router.push({
           path:'/order/pay',
+          // 传参orderNo过去
           query:{
             orderNo:res.orderNo
           }

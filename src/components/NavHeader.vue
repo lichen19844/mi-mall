@@ -288,12 +288,12 @@ export default {
             width: 1226px;
             height: 0;
             opacity: 0;
+            transition: all .6s;
             overflow: hidden;
             box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
             border-top: 1px solid #e5e5e5;
             z-index: 10;
             border-color: #ffffff;
-            transition: all .6s;
             background-color: $colorG;
             .product {
               position: relative;
