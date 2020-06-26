@@ -1,10 +1,5 @@
 <template>
   <div class="order-pay">
-    <!-- <order-header title="订单支付">
-      <template v-slot:tip>
-        <span>请谨防钓鱼链接或诈骗电话，了解更多</span>
-      </template>
-    </order-header> -->
     <div class="wrapper">
       <div class="container">
         <div class="order-wrap">
@@ -74,9 +69,8 @@
   </div>
 </template>
 <script>
-// import QRCode from 'qrcode'
-// import OrderHeader from './../components/OrderHeader'
-// import ScanPayCode from './../components/ScanPayCode'
+import QRCode from 'qrcode'
+import ScanPayCode from './../components/ScanPayCode'
 import Modal from './../components/Modal'
 export default{
   name:'order-pay',
@@ -96,7 +90,7 @@ export default{
   },
   components:{
     // OrderHeader,
-    // ScanPayCode,
+    ScanPayCode,
     Modal
   },
   mounted(){
@@ -118,13 +112,22 @@ export default{
         this.payType = 1
         // 打开新窗口
         window.open('/#/order/alipay?orderId='+this.orderId,'_blank');
-      }else{
+      } else {
         this.axios.post('/pay',{
           orderId:this.orderId,
           orderName:'Vue高仿小米商城',
           amount:0.01,//单位元
-          payType:2 //1支付宝，2微信
-        }).then(()=>{
+          payType:2 //1请求支付宝，2请求微信
+        }).then((res)=>{
+          QRCode.toDataURL(res.content)
+          .then(url => {
+            console.log(url)
+            this.showPay = true;
+            this.payImg = url;
+          })
+          .catch(() => {
+            this.$message.error('微信二维码生成失败，请稍后重试')
+          })
           // QRCode.toDataURL(res.content)
           // .then(url => {
           //   this.showPay = true;
