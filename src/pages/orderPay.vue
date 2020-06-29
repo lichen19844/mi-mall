@@ -109,6 +109,7 @@ export default{
     },
     paySubmit(payType){
       if(payType == 1){
+        // payType和this.payType不一样，this.payType处理的是class样式
         this.payType = 1
         // 打开新窗口
         window.open('/#/order/alipay?orderId='+this.orderId,'_blank');
@@ -124,19 +125,11 @@ export default{
             console.log(url)
             this.showPay = true;
             this.payImg = url;
+            // this.loopOrderState();
           })
           .catch(() => {
             this.$message.error('微信二维码生成失败，请稍后重试')
           })
-          // QRCode.toDataURL(res.content)
-          // .then(url => {
-          //   this.showPay = true;
-          //   this.payImg = url;
-          //   this.loopOrderState();
-          // })
-          // .catch(() => {
-          //   this.$message.error('微信二维码生成失败，请稍后重试');
-          // })
         })
       }
     },
