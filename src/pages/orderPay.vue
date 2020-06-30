@@ -1,5 +1,10 @@
 <template>
   <div class="order-pay">
+    <order-header title="订单支付">
+      <template v-slot:tip>
+        <span>请谨防钓鱼链接或诈骗电话，了解更多></span>
+      </template>
+    </order-header>
     <div class="wrapper">
       <div class="container">
         <div class="order-wrap">
@@ -58,9 +63,9 @@
       btnType="3"
       :showModal="showPayModal"
       sureText="查看订单"
+      @submit="goOrderList"
       cancelText="未支付"
       @cancel="showPayModal=false"
-      @submit="goOrderList"
     >
       <template v-slot:body>
         <p>您确认是否完成支付？</p>
@@ -69,6 +74,7 @@
   </div>
 </template>
 <script>
+import OrderHeader from './../components/OrderHeader'
 import QRCode from 'qrcode'
 import ScanPayCode from './../components/ScanPayCode'
 import Modal from './../components/Modal'
@@ -89,7 +95,7 @@ export default{
     }
   },
   components:{
-    // OrderHeader,
+    OrderHeader,
     ScanPayCode,
     Modal
   },
@@ -107,6 +113,7 @@ export default{
         this.payment = res.payment;
       })
     },
+    // 扫码前就会一直执行轮询程序
     paySubmit(payType){
       if(payType == 1){
         // payType和this.payType不一样，this.payType处理的是class样式
@@ -125,7 +132,7 @@ export default{
             console.log(url)
             this.showPay = true;
             this.payImg = url;
-            // this.loopOrderState();
+            this.loopOrderState();
           })
           .catch(() => {
             this.$message.error('微信二维码生成失败，请稍后重试')
@@ -143,8 +150,10 @@ export default{
     loopOrderState(){
       this.T = setInterval(()=>{
         this.axios.get(`/orders/${this.orderId}`).then((res)=>{
+          // 判断是否支付成功，没有的话则一直执行轮询
           if(res.status == 20){
             clearInterval(this.T);
+            console.log(111111)
             this.goOrderList();
           }
         })
