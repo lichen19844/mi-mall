@@ -75,7 +75,7 @@
 </template>
 <script>
   import OrderHeader from './../components/OrderHeader'
-  // import Loading from './../components/Loading'
+  import Loading from './../components/Loading'
   // import NoData from './../components/NoData'
   // import { Pagination,Button } from 'element-ui'
   // import infiniteScroll from 'vue-infinite-scroll'
@@ -83,7 +83,7 @@
     name:'order-list',
     components:{
       OrderHeader,
-      // Loading,
+      Loading,
       // NoData,
       // [Pagination.name]:Pagination,
       // [Button.name]:Button
