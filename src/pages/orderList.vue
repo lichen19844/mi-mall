@@ -50,7 +50,7 @@
             v-if="true"
             class="pagination"
             background
-            layout="prev, pager, next"
+            layout="prev, pager, next, jumper"
             :pageSize="pageSize"
             :total="total"
             @current-change="handleChange"
@@ -67,6 +67,7 @@
           >
             <img src="/imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
           </div>
+          <!-- 放在数据最下面 -->
           <no-data v-if="!loading && list.length==0"></no-data>
         </div>
       </div>
@@ -76,17 +77,17 @@
 <script>
   import OrderHeader from './../components/OrderHeader'
   import Loading from './../components/Loading'
-  // import NoData from './../components/NoData'
-  // import { Pagination,Button } from 'element-ui'
+  import NoData from './../components/NoData'
+  import { Pagination,Button } from 'element-ui'
   // import infiniteScroll from 'vue-infinite-scroll'
   export default{
     name:'order-list',
     components:{
       OrderHeader,
       Loading,
-      // NoData,
-      // [Pagination.name]:Pagination,
-      // [Button.name]:Button
+      NoData,
+      [Pagination.name]:Pagination,
+      [Button.name]:Button
     },
     directives: {
       // infiniteScroll
@@ -116,7 +117,8 @@
           }
         }).then((res)=>{
           this.loading = false;
-          this.list = this.list.concat(res.list);
+          // this.list = this.list.concat(res.list) || [];
+          this.list = res.list;
           this.total = res.total;
           this.showNextPage = res.hasNextPage;
           this.busy = false;
