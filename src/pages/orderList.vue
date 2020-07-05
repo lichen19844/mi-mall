@@ -47,7 +47,7 @@
             </div>
           </div>
           <el-pagination
-            v-if="true"
+            v-if="false"
             class="pagination"
             background
             layout="prev, pager, next, jumper"
@@ -56,7 +56,7 @@
             @current-change="handleChange"
             >
           </el-pagination>
-          <div class="load-more" v-if="false">
+          <div class="load-more" v-if="true">
               <el-button type="primary" :loading="loading" @click="loadMore">加载更多</el-button>
           </div>
           <div class="scroll-more"
@@ -117,8 +117,8 @@
           }
         }).then((res)=>{
           this.loading = false;
-          // this.list = this.list.concat(res.list) || [];
-          this.list = res.list;
+          this.list = this.list.concat(res.list) || [];
+          // this.list = res.list;
           this.total = res.total;
           this.showNextPage = res.hasNextPage;
           this.busy = false;
