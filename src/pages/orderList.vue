@@ -46,6 +46,8 @@
               </div>
             </div>
           </div>
+
+          <!-- 分页 -->
           <el-pagination
             v-if="false"
             class="pagination"
@@ -56,17 +58,22 @@
             @current-change="handleChange"
             >
           </el-pagination>
-          <div class="load-more" v-if="true">
+          
+          <!-- 点击加载更多 -->
+          <div class="load-more" v-if="false">
               <el-button type="primary" :loading="loading" @click="loadMore">加载更多</el-button>
           </div>
+
+          <!-- 滚动加载更多 -->
           <div class="scroll-more"
             v-infinite-scroll="scrollMore"
             infinite-scroll-disabled="true"
             infinite-scroll-distance="410"
-            v-if="false"
+            v-if="true"
           >
             <img src="/imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
           </div>
+
           <!-- 放在数据最下面 -->
           <no-data v-if="!loading && list.length==0"></no-data>
         </div>
@@ -79,7 +86,7 @@
   import Loading from './../components/Loading'
   import NoData from './../components/NoData'
   import { Pagination,Button } from 'element-ui'
-  // import infiniteScroll from 'vue-infinite-scroll'
+  import infiniteScroll from 'vue-infinite-scroll'
   export default{
     name:'order-list',
     components:{
@@ -90,7 +97,7 @@
       [Button.name]:Button
     },
     directives: {
-      // infiniteScroll
+      infiniteScroll
     },
     data(){
       return {
