@@ -60,6 +60,7 @@
           </el-pagination>
           
           <!-- 点击加载更多 -->
+          <!-- <div class="load-more" v-if="showNextPage"> -->
           <div class="load-more" v-if="false">
               <el-button type="primary" :loading="loading" @click="loadMore">加载更多</el-button>
           </div>
@@ -67,9 +68,9 @@
           <!-- 滚动加载更多 -->
           <div class="scroll-more"
             v-infinite-scroll="scrollMore"
-            infinite-scroll-disabled="true"
+            infinite-scroll-disabled="busy"
             infinite-scroll-distance="410"
-            v-if="true"
+            v-if="showNextPage"
           >
             <img src="/imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
           </div>
@@ -124,7 +125,9 @@
           }
         }).then((res)=>{
           this.loading = false;
+          // 加载更多
           this.list = this.list.concat(res.list) || [];
+          // 分页加载
           // this.list = res.list;
           this.total = res.total;
           this.showNextPage = res.hasNextPage;
