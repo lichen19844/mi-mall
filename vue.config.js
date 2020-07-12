@@ -13,5 +13,8 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  publicPath: '/app',
+  outputDir: 'dest',
+  indexPath: 'index2.html'
 }
