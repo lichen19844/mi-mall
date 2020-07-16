@@ -14,7 +14,9 @@ module.exports = {
       }
     }
   },
-  publicPath: '/app',
-  outputDir: 'dest',
-  indexPath: 'index2.html'
+  // publicPath: '/app',
+  // outputDir: 'dist',
+  // indexPath: 'index.html',
+  lintOnSave: false,
+  productionSourceMap: false
 }
