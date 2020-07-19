@@ -18,5 +18,8 @@ module.exports = {
   // outputDir: 'dist',
   // indexPath: 'index.html',
   lintOnSave: false,
-  productionSourceMap: false
+  productionSourceMap: false,
+  chainWebpack: (config) => {
+    config.plugins.delete('prefetch');
+  }
 }
