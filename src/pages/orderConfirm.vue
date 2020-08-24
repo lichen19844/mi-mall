@@ -472,7 +472,7 @@ export default{
           line-height:40px;
           padding-left:15px;
           border:1px solid #E5E5E5;
-          &+.input{
+          & + .input{
             margin-left:14px;
           }
         }

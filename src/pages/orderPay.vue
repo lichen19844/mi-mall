@@ -118,9 +118,10 @@ export default{
       if(payType == 1){
         // payType和this.payType不一样，this.payType处理的是class样式
         this.payType = 1
-        // 打开新窗口
+        // 支付宝支付接口，打开新窗口
         window.open('/#/order/alipay?orderId='+this.orderId,'_blank');
       } else {
+        // 微信支付接口
         this.axios.post('/pay',{
           orderId:this.orderId,
           orderName:'Vue高仿小米商城',
